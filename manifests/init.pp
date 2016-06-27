@@ -7,10 +7,7 @@
 #   Port for VPP to listen on.
 # [* dpdk_pmd_driver *]
 #   Sets VPP's uio-driver value
-class fdio (
-  $vpp_port = $::fdio::params::odl_rest_port,
-  $dpdk_pmd_type = $::fdio::params::dpdk_pmd_type,
-) inherits ::fdio::params {
+class fdio inherits ::fdio::params {
 
   # Validate OS family
   case $::osfamily {
@@ -50,9 +47,5 @@ class fdio (
   }
 
   class { '::fdio::install': } ->
-  class { '::fdio::config':
-    $dpdk_pmd_type = $dpdk_pmd_type,
-  } ~>
-  class { '::fdio::service': } ->
   Class['::fdio']
 }

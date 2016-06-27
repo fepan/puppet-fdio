@@ -1,20 +1,29 @@
-# == Class fdio::config
+# == Class fdio::vpp::config
 #
 # This class handles vpp config changes.
 #
-class fdio::config (
+class fdio::vpp::config (
   $dpdk_pmd_type = $::fdio::params::dpdk_pmd_type,
+  $dpdk_pci_devs = $::fdio::params::dpdk_pci_devs,
 ){
   file_line { 'startup.conf':
     path  => '/etc/vpp/startup.conf',
-    line  => "cli-listen localhost:${fdio_port}",
+    line  => "cli-listen localhost:5002",
     after => '^unix.*$',
   }
 
   file_line { 'startup.conf':
     path  => '/etc/vpp/startup.conf',
     line  => "    uio-driver ${dpdk_pmd_type}",
-    after => '^    uio-driver.*$',
+    match => '^    uio-driver.*$',
+  }
+
+  each($dpdk_pci_devs) |$value| {
+    file_line { 'startup.conf':
+      path  => '/etc/vpp/startup.conf',
+      line  => "    dev ${value}",
+      after => '^dpdk.*$',
+    }
   }
 
   # ensure that uio-pci-generic is loaded

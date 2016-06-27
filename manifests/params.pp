@@ -11,4 +11,5 @@ class fdio::params {
   $vpp_port = '8080'
   $install_method = 'rpm'
   $dpdk_pmd_type = 'uio_pci_generic'
+  $dpdk_pci_devs = []
 }
