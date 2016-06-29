@@ -9,16 +9,16 @@
 #   Sets VPP's uio-driver value
 class fdio::vpp (
   $install_method = $::fdio::params::install_method,
-  $vpp_port = $::fdio::params::vpp_rest_port,
   $dpdk_pmd_type = $::fdio::params::dpdk_pmd_type,
+  $dpdk_pci_devs = $::fdio::params::dpdk_pci_devs,
 ) inherits ::fdio {
 
   class { '::fdio::vpp::install':
-    $install_method = $install_method,
+    install_method => $install_method,
   } ->
   class { '::fdio::vpp::config':
-    $vpp_port = $::fdio::params::odl_rest_port,
-    $dpdk_pmd_type = $dpdk_pmd_type,
+    dpdk_pmd_type => $dpdk_pmd_type,
+    dpdk_pci_devs => $dpdk_pci_devs,
   } ~>
   class { '::fdio::vpp::service': } ->
   Class['::fdio::vpp']

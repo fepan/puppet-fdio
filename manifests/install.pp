@@ -3,7 +3,7 @@
 # Manages the installation of fdio.
 #
 class fdio::install (
-  $install_method => $::fdio::params::install_method,
+  $install_method = $::fdio::params::install_method,
 ){
   if $install_method == 'rpm' {
     # Choose Yum URL based on OS (CentOS vs Fedora)

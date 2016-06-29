@@ -3,7 +3,7 @@
 # Manages the installation of fdio.
 #
 class fdio::honeycomb::install (
-  $install_method => $::fdio::params::install_method,
+  $install_method = $::fdio::params::install_method,
 ) inherits fdio::install {
   if $fdio::install_method == 'rpm' {
     # Install the HC RPM

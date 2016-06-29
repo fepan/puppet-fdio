@@ -8,7 +8,6 @@ class fdio::params {
   #   spec/classes/fdio_spec.rb tests that use default Karaf features
   # Else, both the Beaker and RSpec tests will fail
   # TODO: Remove this possible source of bugs^^
-  $vpp_port = '8080'
   $install_method = 'rpm'
   $dpdk_pmd_type = 'uio_pci_generic'
   $dpdk_pci_devs = []

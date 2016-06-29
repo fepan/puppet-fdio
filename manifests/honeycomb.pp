@@ -7,7 +7,7 @@ class fdio::honeycomb (
 ) inherits ::fdio {
 
   class { '::fdio::honeycomb::install':
-    $install_method = $install_method,
+    install_method => $install_method,
   } ->
   class { '::fdio::honeycomb::service': } ->
   Class['::fdio']
