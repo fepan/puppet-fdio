@@ -8,14 +8,14 @@ class fdio::vpp::config (
 ){
   file_line { 'startup.conf_cli-listen':
     path  => '/etc/vpp/startup.conf',
-    line  => "cli-listen localhost:5002",
+    line  => "    cli-listen localhost:5002",
     after => '^unix.*$',
   }
 
   file_line { 'startup.conf_uio-driver':
     path  => '/etc/vpp/startup.conf',
     line  => "    uio-driver ${dpdk_pmd_type}",
-    match => '^    uio-driver.*$',
+    match => '.*uio-driver.*$',
   }
 
   each($dpdk_pci_devs) |$value| {
