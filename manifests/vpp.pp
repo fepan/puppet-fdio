@@ -20,6 +20,8 @@ class fdio::vpp (
     dpdk_pmd_type => $dpdk_pmd_type,
     dpdk_pci_devs => $dpdk_pci_devs,
   } ~>
-  class { '::fdio::vpp::service': } ->
+  class { '::fdio::vpp::service':
+    dpdk_pci_devs => $dpdk_pci_devs,
+  } ->
   Class['::fdio::vpp']
 }
