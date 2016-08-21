@@ -1,5 +1,3 @@
-require 'puppet/util/network_device/ipcalc'
-
 Puppet::Type.type(:vpp_interface_cfg).provide :vpp do
   
   def get_int_prefix(name)
