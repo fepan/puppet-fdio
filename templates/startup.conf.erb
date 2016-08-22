@@ -6,7 +6,7 @@ unix {
 }
 
 dpdk {
-  <% dpdk_pci_devs.each do |n| -%>
+  <% @dpdk_pci_devs.each do |n| -%>
   dev <%=n-%>
 
   <% end -%>

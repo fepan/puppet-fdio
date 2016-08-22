@@ -11,6 +11,8 @@ class fdio::vpp (
   $install_method = $::fdio::params::install_method,
   $dpdk_pmd_type = $::fdio::params::dpdk_pmd_type,
   $dpdk_pci_devs = $::fdio::params::dpdk_pci_devs,
+  $nic_names = $::fdio::params::nic_names,
+  $ipaddresses = $::fdio::params::ipaddresses,
 ) inherits ::fdio {
 
   class { '::fdio::vpp::install':
@@ -22,6 +24,8 @@ class fdio::vpp (
   } ~>
   class { '::fdio::vpp::service':
     dpdk_pci_devs => $dpdk_pci_devs,
+    nic_names => $nic_names,
+    ipaddresses => $ipaddresses,
   } ->
   Class['::fdio::vpp']
 }
