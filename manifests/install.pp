@@ -2,10 +2,8 @@
 #
 # Manages the installation of fdio.
 #
-class fdio::install (
-  $install_method = $::fdio::params::install_method,
-){
-  if $install_method == 'rpm' {
+class fdio::install {
+  if $fdio::params::install_method == 'rpm' {
     # Choose Yum URL based on OS (CentOS vs Fedora)
     # NB: Currently using the CentOS CBS for both Fedora and CentOS
     $base_url = $::operatingsystem ? {
@@ -27,8 +25,13 @@ class fdio::install (
       gpgcheck => 0,
     }
 
+    # Install the VPP RPM
+    package { 'vpp':
+      ensure  => present,
+      require => Yumrepo['fdio-master'],
+    }
   }
   else {
-    fail("Unknown install method: ${fdio::install_method}")
+    fail("Unknown install method: ${fdio::params::install_method}")
   }
 }
