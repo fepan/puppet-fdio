@@ -1,12 +1,8 @@
-# == Class fdio::vpp::service
+# == Class fdio::service
 #
-# Starts the VPP systemd or Upstart service.
+# Starts the FDIO systemd or Upstart service.
 #
-class fdio::vpp::service (
-  $dpdk_pci_devs = $::fdio::params::dpdk_pci_devs,
-  $nic_names = $::fdio::params::nic_names,
-  $ipaddresses = $::fdio::params::ipaddresses,
-){
+class fdio::service {
 
   define shutdown_nic ($nic_name = $title) {
     exec { "shut down nic $nic_name":
@@ -17,7 +13,7 @@ class fdio::vpp::service (
     }
   }
 
-  shutdown_nic { $nic_names: }
+  shutdown_nic { $::fdio::params::fdio_nic_names: }
 
   service { 'vpp':
     ensure     => running,
@@ -27,9 +23,9 @@ class fdio::vpp::service (
   }
 
   vpp_interface_cfg { "config vpp interfaces" :
-    interfaces => $dpdk_pci_devs,
+    interfaces => $::fdio::params::fdio_dpdk_pci_devs,
     state      => "up",
-    ipaddress  => $ipaddresses,
+    ipaddress  => $::fdio::params::fdio_ips,
     require    => Service['vpp'],
   }
   

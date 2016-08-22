@@ -10,7 +10,8 @@ class fdio::params {
   # TODO: Remove this possible source of bugs^^
   $install_method = 'rpm'
   $dpdk_pmd_type = 'uio_pci_generic'
-  $dpdk_pci_devs = []
-  $nic_names = []
-  $ipaddresses = []
+  $fdio_dpdk_pci_devs = []
+  $fdio_nic_names = []
+  $fdio_ips = []
+  $fdio_port = 5002
 }

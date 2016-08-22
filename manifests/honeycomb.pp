@@ -1,14 +1,51 @@
-# == Class: fdio::honeycomb
+# == Class: honeycomb
 #
-# fd.io::honeycomb
+# OpenDaylight Honeycomb Agent
 #
-class fdio::honeycomb (
-  $install_method = $::fdio::params::install_method,
-) inherits ::fdio {
+# === Parameters
+# [*rest_port *]
+#   Port for Honeycomb REST interface to listen on.
+#
+# [*websocket_rest_port *]
+#   Port for Honeycomb REST interface to listen on for websocket connections.
+#
+# [*user *]
+#   Username to configure in honeycomb.
+#
+# [*password *]
+#   Password to configure in honeycomb.
+#
+class ::fdio::honeycomb (
+  $rest_port           = '8181',
+  $websocket_rest_port = '7779',
+  $user                = 'admin',
+  $password            = 'admin',
+) {
+  include ::fdio::params
+  include ::fdio::install
 
-  class { '::fdio::honeycomb::install':
-    install_method => $install_method,
-  } ->
-  class { '::fdio::honeycomb::service': } ->
-  Class['::fdio']
+  package { 'honeycomb':
+    ensure  => present,
+    require => [ Yumrepo['fdio-master'], Package['vpp'] ],
+  }
+  ->
+  # Configuration of Honeycomb
+  file { 'honeycomb.json':
+    ensure  => file,
+    path    => '/opt/honeycomb/config/honeycomb.json',
+    # Set user:group owners
+    owner   => 'honeycomb',
+    group   => 'honeycomb',
+    # Use a template to populate the content
+    content => template('honeycomb/honeycomb.json.erb'),
+  }
+  ~>
+  service { 'honeycomb':
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => [ Service['vpp'], Package['honeycomb'] ],
+  }
+
 }

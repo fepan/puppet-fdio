@@ -1,12 +1,12 @@
 unix {
-  cli-listen localhost:5002
+  cli-listen localhost:<%=@fdio_port%>
   nodaemon
   log /tmp/vpp.log
   full-coredump
 }
 
 dpdk {
-  <% @dpdk_pci_devs.each do |n| -%>
+  <% @fdio_dpdk_pci_devs.each do |n| -%>
   dev <%=n-%>
 
   <% end -%>
