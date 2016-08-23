@@ -3,7 +3,7 @@
 # Manages the installation of fdio.
 #
 class fdio::install {
-  if $fdio::params::install_method == 'rpm' {
+  if $fdio::install_method == 'rpm' {
     # Choose Yum URL based on OS (CentOS vs Fedora)
     # NB: Currently using the CentOS CBS for both Fedora and CentOS
     $base_url = $::operatingsystem ? {
@@ -32,6 +32,6 @@ class fdio::install {
     }
   }
   else {
-    fail("Unknown install method: ${fdio::params::install_method}")
+    fail("Unknown install method: ${fdio::install_method}")
   }
 }
