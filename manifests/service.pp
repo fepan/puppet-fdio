@@ -13,7 +13,7 @@ class fdio::service {
     }
   }
 
-  shutdown_nic { $::fdio::params::fdio_nic_names: }
+  shutdown_nic { $::fdio::fdio_nic_names: }
 
   service { 'vpp':
     ensure     => running,
@@ -23,9 +23,9 @@ class fdio::service {
   }
 
   vpp_interface_cfg { "config vpp interfaces" :
-    interfaces => $::fdio::params::fdio_dpdk_pci_devs,
+    interfaces => $::fdio::fdio_dpdk_pci_devs,
     state      => "up",
-    ipaddress  => $::fdio::params::fdio_ips,
+    ipaddress  => $::fdio::fdio_ips,
     require    => Service['vpp'],
   }
   
