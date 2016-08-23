@@ -15,14 +15,13 @@
 # [*password *]
 #   Password to configure in honeycomb.
 #
-class ::fdio::honeycomb (
+class fdio::honeycomb (
   $rest_port           = '8181',
   $websocket_rest_port = '7779',
   $user                = 'admin',
   $password            = 'admin',
 ) {
-  include ::fdio::params
-  include ::fdio::install
+  include ::fdio
 
   package { 'honeycomb':
     ensure  => present,
