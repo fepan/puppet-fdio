@@ -36,7 +36,7 @@ class fdio::honeycomb (
     owner   => 'honeycomb',
     group   => 'honeycomb',
     # Use a template to populate the content
-    content => template('honeycomb/honeycomb.json.erb'),
+    content => template('fdio/honeycomb.json.erb'),
   }
   ~>
   service { 'honeycomb':
