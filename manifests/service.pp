@@ -11,6 +11,11 @@ class fdio::service {
       onlyif  => "ip link show $nic_name | grep 'state UP' > /dev/null",
       path    => '/usr/sbin:/usr/bin',
     }
+    file_line { "ifcfg-$nic_name":
+      path  => "/etc/sysconfig/network-scripts/ifcfg-$nic_name",
+      line  => "ONBOOT=no",
+      match => "ONBOOT=.*",
+    }
   }
 
   shutdown_nic { $::fdio::fdio_nic_names: }
