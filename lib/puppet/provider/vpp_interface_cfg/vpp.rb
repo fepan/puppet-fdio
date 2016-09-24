@@ -1,9 +1,6 @@
 Puppet::Type.type(:vpp_interface_cfg).provide :vpp do
   
   def get_int_prefix(name)
-    if name =~ /^\p{Alpha}/
-      return name
-    end
     if %r{([[:alpha:]]*#{name})\s+} =~ `vppctl show int`
       return $1
     else
