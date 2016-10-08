@@ -21,6 +21,11 @@
 # [* install_method *]
 #   Installation method.  Default rpm
 #
+# [* vlan *]
+#   Enabled vlan tagged traffic on VPP interfaces. This is needed to configure
+#   vlan_strip_offload option for Cisco VIC interfaces.
+#   Default to false.
+#
 class fdio (
   $fdio_port          = $::fdio::params::fdio_port,
   $dpdk_pmd_type      = $::fdio::params::dpdk_pmd_type,
@@ -28,6 +33,7 @@ class fdio (
   $fdio_nic_names     = $::fdio::params::fdio_nic_names,
   $fdio_ips           = $::fdio::params::fdio_ips,
   $install_method     = $::fdio::params::install_method,
+  $vlan               = $::fdio::params::vlan,
 ) inherits ::fdio::params {
 
   # Validate OS family

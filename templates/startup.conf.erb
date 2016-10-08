@@ -7,7 +7,7 @@ unix {
 
 dpdk {
   <% @fdio_dpdk_pci_devs.each do |n| -%>
-  dev <%=n-%> <% if system("lspci -s #{n} | grep VIC") -%> {vlan-strip-offload off}<%end-%>
+  dev <%=n-%> <% if @vlan && system("lspci -s #{n} | grep VIC") -%> {vlan-strip-offload off}<%end%>
   <% end -%>
   uio-driver <%=@dpdk_pmd_type%>
 }

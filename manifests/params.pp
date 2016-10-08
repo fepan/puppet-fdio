@@ -14,4 +14,5 @@ class fdio::params {
   $fdio_nic_names = []
   $fdio_ips = []
   $fdio_port = 5002
+  $vlan = false
 }
