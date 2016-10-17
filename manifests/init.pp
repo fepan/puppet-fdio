@@ -21,6 +21,10 @@
 # [* install_method *]
 #   Installation method.  Default rpm
 #
+# [* rpm_repo *]
+#   RPM repo branch, valid values are 'release', 'master', and stable branch such as 'stable.1609'.
+#   Defaults to 'release'.
+#
 # [* vlan *]
 #   Enabled vlan tagged traffic on VPP interfaces. This is needed to configure
 #   vlan_strip_offload option for Cisco VIC interfaces.
@@ -33,6 +37,7 @@ class fdio (
   $fdio_nic_names     = $::fdio::params::fdio_nic_names,
   $fdio_ips           = $::fdio::params::fdio_ips,
   $install_method     = $::fdio::params::install_method,
+  $rpm_repo           = $::fdio::params::rpm_repo,
   $vlan               = $::fdio::params::vlan,
 ) inherits ::fdio::params {
 

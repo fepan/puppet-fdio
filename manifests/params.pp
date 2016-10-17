@@ -9,6 +9,7 @@ class fdio::params {
   # Else, both the Beaker and RSpec tests will fail
   # TODO: Remove this possible source of bugs^^
   $install_method = 'rpm'
+  $rpm_repo = 'release'
   $dpdk_pmd_type = 'uio_pci_generic'
   $fdio_dpdk_pci_devs = []
   $fdio_nic_names = []
