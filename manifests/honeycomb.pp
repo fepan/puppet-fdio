@@ -25,7 +25,7 @@ class fdio::honeycomb (
 
   package { 'honeycomb':
     ensure  => present,
-    require => [ Yumrepo['fdio-master'], Package['vpp'] ],
+    require => Package['vpp'],
   }
   ->
   # Configuration of Honeycomb
