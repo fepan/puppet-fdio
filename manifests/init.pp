@@ -30,6 +30,13 @@
 #   vlan_strip_offload option for Cisco VIC interfaces.
 #   Default to false.
 #
+# [* main_core *]
+#   VPP main thread pinning. Default to '' (no pinning)
+#
+# [* corelist_workers *]
+#   List of cores for VPP worker thread pinning in string format.
+#   Default to '' (no pinning)
+#
 class fdio (
   $fdio_port          = $::fdio::params::fdio_port,
   $dpdk_pmd_type      = $::fdio::params::dpdk_pmd_type,
@@ -39,6 +46,8 @@ class fdio (
   $install_method     = $::fdio::params::install_method,
   $rpm_repo           = $::fdio::params::rpm_repo,
   $vlan               = $::fdio::params::vlan,
+  $main_core          = $::fdio::params::main_core,
+  $corelist_workers   = $::fdio::params::corelist_workers,
 ) inherits ::fdio::params {
 
   # Validate OS family

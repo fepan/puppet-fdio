@@ -16,4 +16,6 @@ class fdio::params {
   $fdio_ips = []
   $fdio_port = 5002
   $vlan = false
+  $main_core = ''
+  $corelist_workers = ''
 }

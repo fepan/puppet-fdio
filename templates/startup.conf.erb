@@ -12,6 +12,11 @@ dpdk {
   uio-driver <%=@dpdk_pmd_type%>
 }
 
+cpu {
+  <% if @main_core != '' -%>main-core <%=@main_core%> <%end%>
+  <% if @corelist_workers != '' -%>corelist-workers <%=@corelist_workers%> <%end%>
+}
+
 api-trace {
   on
 }
