@@ -27,11 +27,18 @@ class fdio::service {
     hasrestart => true,
   }
 
+  # Wait for VPP service to start up and stabilize
+  exec { 'wait_vpp_startup' :
+    require => Service["vpp"],
+    command => "sleep 10 && systemctl is-active vpp --quiet",
+    path => "/usr/bin:/bin",
+  }
+
   vpp_interface_cfg { "config vpp interfaces" :
     interfaces => $::fdio::fdio_dpdk_pci_devs,
     state      => "up",
     ipaddress  => $::fdio::fdio_ips,
-    require    => Service['vpp'],
+    require    => Exec['wait_vpp_startup'],
   }
   
 }
