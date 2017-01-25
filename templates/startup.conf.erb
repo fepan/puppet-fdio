@@ -1,20 +1,19 @@
 unix {
-  cli-listen localhost:<%=@fdio_port%>
   nodaemon
   log /tmp/vpp.log
   full-coredump
 }
 
 dpdk {
-  <% @fdio_dpdk_pci_devs.each do |n| -%>
-  dev <%=n-%> <% if @vlan && system("lspci -s #{n} | grep VIC") -%> {vlan-strip-offload off}<%end%>
-  <% end -%>
-  uio-driver <%=@dpdk_pmd_type%>
+  <% if @vpp_dpdk_devs.is_a? Array -%><% @vpp_dpdk_devs.each do |n| -%>
+  dev <%=n-%> <% if @vpp_vlan_enabled && system("lspci -s #{n} | grep VIC") -%> {vlan-strip-offload off}<%end%>
+  <% end -%><% end -%>
+  uio-driver <%=@vpp_dpdk_uio_driver%>
 }
 
 cpu {
-  <% if @main_core != '' -%>main-core <%=@main_core%> <%end%>
-  <% if @corelist_workers != '' -%>corelist-workers <%=@corelist_workers%> <%end%>
+  <% if @vpp_cpu_main_core -%>main-core <%=@vpp_cpu_main_core%> <%end%>
+  <% if @vpp_cpu_corelist_workers -%>corelist-workers <%=@vpp_cpu_corelist_workers%> <%end%>
 }
 
 api-trace {

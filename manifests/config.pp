@@ -9,8 +9,8 @@ class fdio::config {
 
   # ensure that dpdk module is loaded
   exec { 'insert_dpdk_kmod':
-    command => "modprobe ${::fdio::dpdk_pmd_type}",
-    unless => "lsmod | grep ${::fdio::dpdk_pmd_type}",
-    path   => '/bin:/sbin',
+    command => "modprobe ${::fdio::vpp_dpdk_uio_driver}",
+    unless  => "lsmod | grep ${::fdio::vpp_dpdk_uio_driver}",
+    path    => '/bin:/sbin',
   }
 }

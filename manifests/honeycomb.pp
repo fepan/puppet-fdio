@@ -2,17 +2,17 @@
 #
 # OpenDaylight Honeycomb Agent
 #
-# === Parameters
-# [*rest_port *]
+# === Parameters:
+# [*rest_port*]
 #   Port for Honeycomb REST interface to listen on.
 #
-# [*websocket_rest_port *]
+# [*websocket_rest_port*]
 #   Port for Honeycomb REST interface to listen on for websocket connections.
 #
-# [*user *]
+# [*user*]
 #   Username to configure in honeycomb.
 #
-# [*password *]
+# [*password*]
 #   Password to configure in honeycomb.
 #
 class fdio::honeycomb (
@@ -44,7 +44,7 @@ class fdio::honeycomb (
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => [ Service['vpp'], Package['honeycomb'] ],
+    require    => [ Vpp_service['vpp'], Package['honeycomb'] ],
     restart    => 'systemctl stop vpp;systemctl stop honeycomb;rm -rf /var/lib/honeycomb/persist/*;systemctl start vpp; sleep 5;systemctl start honeycomb',
   }
 
