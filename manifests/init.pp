@@ -15,10 +15,10 @@
 #   (optional) VPP DPDK UIO driver type.
 #   Defaults to 'uio_pci_generic'
 #
-# [*vpp_vlan_enabled*]
-#   (optional) Enabled vlan tagged traffic on VPP interfaces. This is needed to configure
-#              vlan_strip_offload option for Cisco VIC interfaces.
-#   Default to false.
+# [*vpp_dpdk_dev_default_options*]
+#   (optional) VPP interface options configuration.
+#   Example: 'vlan-strip-offload on'
+#   Default to ''.
 #
 # [*vpp_cpu_main_core*]
 #   (optional) VPP main thread pinning.
@@ -33,18 +33,16 @@
 #   Defaults to true
 #
 class fdio (
-  $repo_branch              = $::fdio::params::repo_branch,
-  $vpp_dpdk_devs            = $::fdio::params::vpp_dpdk_devs,
-  $vpp_dpdk_uio_driver      = $::fdio::params::vpp_dpdk_uio_driver,
-  $vpp_vlan_enabled         = $::fdio::params::vpp_vlan_enabled,
-  $vpp_cpu_main_core        = $::fdio::params::vpp_cpu_main_core,
-  $vpp_cpu_corelist_workers = $::fdio::params::vpp_cpu_corelist_workers,
-  $copy_kernel_nic_ip       = $::fdio::params::copy_kernel_nic_ip,
+  $repo_branch                  = $::fdio::params::repo_branch,
+  $vpp_dpdk_devs                = $::fdio::params::vpp_dpdk_devs,
+  $vpp_dpdk_uio_driver          = $::fdio::params::vpp_dpdk_uio_driver,
+  $vpp_dpdk_dev_default_options = $::fdio::params::vpp_dpdk_dev_default_options,
+  $vpp_cpu_main_core            = $::fdio::params::vpp_cpu_main_core,
+  $vpp_cpu_corelist_workers     = $::fdio::params::vpp_cpu_corelist_workers,
+  $copy_kernel_nic_ip           = $::fdio::params::copy_kernel_nic_ip,
 ) inherits ::fdio::params {
 
   validate_array($vpp_dpdk_devs)
-  validate_bool($vpp_vlan_enabled)
-  validate_bool($copy_kernel_nic_ip)
 
   # Validate OS family
   case $::osfamily {
